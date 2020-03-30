@@ -90,8 +90,13 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                                         if let img = UIImage(data: data) {
                                             let imgView = UIImageView(image: img)
                                             imgView.contentMode = .scaleAspectFit
+                                            imgView.isUserInteractionEnabled = true
+                                            imgView.tag = i
                                             imgView.frame = CGRect(x: CGFloat(i) * scrollViewForImages.bounds.width, y: 0, width: scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
                                             scrollViewForImages.scrollForImages.addSubview(imgView)
+                                            
+                                            let tap = UITapGestureRecognizer(target: self, action: #selector(self.scrollTapped(sender:)))
+                                            imgView.addGestureRecognizer(tap)
                                         }
                                     }
                                 }
@@ -109,6 +114,44 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell
     }
     
+    @objc func scrollTapped(sender: UITapGestureRecognizer) {
+//        print(sender.view)
+//        print(sender.view?.tag)
+//        print(sender.view?.superview?.superview?.superview?.superview?.superview)
+//        print(sender.view?.superview?.superview?.superview?.superview?.superview?.tag)
+        
+        if let imgTag = sender.view?.tag,
+            let cellTag = sender.view?.superview?.superview?.superview?.superview?.superview?.tag,
+            let item = itemArray?[cellTag] {
+            if let preview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PreviewImageVC") as? PreviewImageVC {
+                if let scrollViewForImages = Bundle.main.loadNibNamed("ProductImagesScrollView", owner: self, options: [:])?.first as? ProductImagesScrollView {
+                    scrollViewForImages.frame = CGRect(x: 0, y: 30, width: preview.view.bounds.width, height: preview.view.bounds.height-30)
+                    
+                    for (i, image) in (item.images ?? []).enumerated() {
+                        DispatchQueue.global().async {
+                            if let url = URL(string: image), let data = try? Data(contentsOf: url) {
+                                DispatchQueue.main.async {
+                                    if let img = UIImage(data: data) {
+                                        let imgView = UIImageView(image: img)
+                                        imgView.contentMode = .scaleAspectFit
+                                        imgView.isUserInteractionEnabled = true
+                                        imgView.tag = i
+                                        imgView.frame = CGRect(x: CGFloat(i) * scrollViewForImages.bounds.width, y: 0, width: scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
+                                        scrollViewForImages.scrollForImages.addSubview(imgView)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    scrollViewForImages.scrollForImages.contentSize = CGSize(width: CGFloat(item.images?.count ?? 0) * scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
+                    preview.view.addSubview(scrollViewForImages)
+                    scrollViewForImages.scrollForImages.contentOffset = CGPoint(x: CGFloat(imgTag) * scrollViewForImages.bounds.width, y: scrollViewForImages.scrollForImages.contentOffset.y)
+                    present(preview, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -124,6 +167,10 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ProductListReusableView", for: indexPath) as! ProductListReusableView
         return header
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
     
     func basketScreen() {

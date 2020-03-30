@@ -373,5 +373,20 @@
             </objects>
             <point key="canvasLocation" x="421.73913043478262" y="782.8125"/>
         </scene>
+        <!--Preview ImageVC-->
+        <scene sceneID="OiJ-9F-D34">
+            <objects>
+                <viewController storyboardIdentifier="PreviewImageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sOw-yM-kP4" customClass="PreviewImageVC" customModule="KEProductsVC" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h1V-8p-8Ti">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="O6l-le-PZZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gPV-st-dMC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1346" y="798"/>
+        </scene>
     </scenes>
 </document>

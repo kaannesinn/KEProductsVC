@@ -19,6 +19,7 @@
 		829031872431C5D700D6AA8D /* ProductListReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829031862431C5D700D6AA8D /* ProductListReusableView.swift */; };
 		829031892431CDB800D6AA8D /* ProductImagesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829031882431CDB800D6AA8D /* ProductImagesScrollView.swift */; };
 		8290318B2431CDBF00D6AA8D /* ProductImagesScrollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8290318A2431CDBF00D6AA8D /* ProductImagesScrollView.xib */; };
+		8290318D2431ECAF00D6AA8D /* PreviewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8290318C2431ECAF00D6AA8D /* PreviewImageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		829031862431C5D700D6AA8D /* ProductListReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListReusableView.swift; sourceTree = "<group>"; };
 		829031882431CDB800D6AA8D /* ProductImagesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImagesScrollView.swift; sourceTree = "<group>"; };
 		8290318A2431CDBF00D6AA8D /* ProductImagesScrollView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductImagesScrollView.xib; sourceTree = "<group>"; };
+		8290318C2431ECAF00D6AA8D /* PreviewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				829031862431C5D700D6AA8D /* ProductListReusableView.swift */,
 				829031882431CDB800D6AA8D /* ProductImagesScrollView.swift */,
 				8290318A2431CDBF00D6AA8D /* ProductImagesScrollView.xib */,
+				8290318C2431ECAF00D6AA8D /* PreviewImageVC.swift */,
 				8235FC3A242C8BB100DF34AE /* Main.storyboard */,
 				8235FC3D242C8BB200DF34AE /* Assets.xcassets */,
 				8235FC3F242C8BB200DF34AE /* LaunchScreen.storyboard */,
@@ -160,6 +163,7 @@
 				8235FC49242C8C2100DF34AE /* KEParallaxCollectionViewController.swift in Sources */,
 				829031892431CDB800D6AA8D /* ProductImagesScrollView.swift in Sources */,
 				8235FC39242C8BB100DF34AE /* ProductDetailVC.swift in Sources */,
+				8290318D2431ECAF00D6AA8D /* PreviewImageVC.swift in Sources */,
 				820E00B5242E1D71004EAA1C /* ProductsListVC.swift in Sources */,
 				8235FC4D242C8C8400DF34AE /* KEParallaxCell.swift in Sources */,
 				8235FC35242C8BB100DF34AE /* AppDelegate.swift in Sources */,

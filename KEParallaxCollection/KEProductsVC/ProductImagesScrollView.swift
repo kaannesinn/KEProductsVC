@@ -15,5 +15,4 @@ class ProductImagesScrollView: UIView {
     override class func awakeFromNib() {
         super.awakeFromNib()
     }
-    
 }
