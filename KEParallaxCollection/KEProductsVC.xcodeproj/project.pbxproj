@@ -71,21 +71,53 @@
 			isa = PBXGroup;
 			children = (
 				8235FC34242C8BB100DF34AE /* AppDelegate.swift */,
-				8235FC48242C8C2100DF34AE /* KEParallaxCollectionViewController.swift */,
-				8235FC4C242C8C8400DF34AE /* KEParallaxCell.swift */,
-				8235FC38242C8BB100DF34AE /* ProductDetailVC.swift */,
-				820E00B4242E1D71004EAA1C /* ProductsListVC.swift */,
-				820E00B6242E3D63004EAA1C /* ProductListCell.swift */,
-				829031862431C5D700D6AA8D /* ProductListReusableView.swift */,
-				829031882431CDB800D6AA8D /* ProductImagesScrollView.swift */,
-				8290318A2431CDBF00D6AA8D /* ProductImagesScrollView.xib */,
-				8290318C2431ECAF00D6AA8D /* PreviewImageVC.swift */,
+				8290319124321E4C00D6AA8D /* main products */,
+				8290319024321E4100D6AA8D /* product detail */,
+				8290318E24321E2400D6AA8D /* product list */,
+				8290318F24321E2E00D6AA8D /* scrollable preview image */,
 				8235FC3A242C8BB100DF34AE /* Main.storyboard */,
 				8235FC3D242C8BB200DF34AE /* Assets.xcassets */,
 				8235FC3F242C8BB200DF34AE /* LaunchScreen.storyboard */,
 				8235FC42242C8BB200DF34AE /* Info.plist */,
 			);
 			path = KEProductsVC;
+			sourceTree = "<group>";
+		};
+		8290318E24321E2400D6AA8D /* product list */ = {
+			isa = PBXGroup;
+			children = (
+				820E00B4242E1D71004EAA1C /* ProductsListVC.swift */,
+				820E00B6242E3D63004EAA1C /* ProductListCell.swift */,
+				829031862431C5D700D6AA8D /* ProductListReusableView.swift */,
+			);
+			path = "product list";
+			sourceTree = "<group>";
+		};
+		8290318F24321E2E00D6AA8D /* scrollable preview image */ = {
+			isa = PBXGroup;
+			children = (
+				829031882431CDB800D6AA8D /* ProductImagesScrollView.swift */,
+				8290318A2431CDBF00D6AA8D /* ProductImagesScrollView.xib */,
+				8290318C2431ECAF00D6AA8D /* PreviewImageVC.swift */,
+			);
+			path = "scrollable preview image";
+			sourceTree = "<group>";
+		};
+		8290319024321E4100D6AA8D /* product detail */ = {
+			isa = PBXGroup;
+			children = (
+				8235FC38242C8BB100DF34AE /* ProductDetailVC.swift */,
+			);
+			path = "product detail";
+			sourceTree = "<group>";
+		};
+		8290319124321E4C00D6AA8D /* main products */ = {
+			isa = PBXGroup;
+			children = (
+				8235FC48242C8C2100DF34AE /* KEParallaxCollectionViewController.swift */,
+				8235FC4C242C8C8400DF34AE /* KEParallaxCell.swift */,
+			);
+			path = "main products";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

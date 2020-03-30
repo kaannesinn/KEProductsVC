@@ -9,7 +9,7 @@
 import UIKit
 
 class ProductDetailVC: UIViewController {
-    @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var imagesView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

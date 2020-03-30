@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ProductListCellDelegate: NSObject {
-    func basketScreen()
+    func basketScreen(sender: UIButton)
 }
 
 class ProductListCell: UICollectionViewCell {
@@ -20,7 +20,7 @@ class ProductListCell: UICollectionViewCell {
     @IBOutlet weak var lblDiscountValue: UILabel!
     @IBOutlet weak var btnBasket: UIButton!
     var delegate: ProductListCellDelegate?
-    
+     
     override func awakeFromNib() {
         super.awakeFromNib()
         lblDiscountValue.layer.cornerRadius = 5.0
@@ -30,8 +30,8 @@ class ProductListCell: UICollectionViewCell {
         layer.masksToBounds = true
     }
     
-    @IBAction func basketClicked(_ sender: Any) {
-        delegate?.basketScreen()
+    @IBAction func basketClicked(_ sender: UIButton) {
+        delegate?.basketScreen(sender: sender)
     }
     
 }

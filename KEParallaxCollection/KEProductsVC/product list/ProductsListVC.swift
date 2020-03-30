@@ -9,13 +9,12 @@
 import UIKit
 
 protocol ProductsListVCDelegate: NSObject {
-    func orderScreen()
-    func filterScreen()
+    func cellDidSelect(item: (title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool))
 }
 
-class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProductListCellDelegate, UICollectionViewDelegateFlowLayout {
+class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ProductListCellDelegate, UICollectionViewDelegateFlowLayout, ProductListReusableViewDelegate {
 
-    var itemArray: [(title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?)]?
+    var itemArray: [(title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool)]?
     var insetValue: CGFloat = 5.0
     var cellWidth: CGFloat = 199.0
     var cellHeight: CGFloat = 315.0
@@ -42,14 +41,6 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         flowLayout.sectionInset = UIEdgeInsets(top: insetValue, left: insetValue, bottom: insetValue, right: insetValue)
         self.collectionView.collectionViewLayout = flowLayout
         self.collectionView.backgroundColor = backgroundColor
-    }
-    
-    @IBAction func orderClicked(_ sender: Any) {
-        delegate?.orderScreen()
-    }
-    
-    @IBAction func filterClicked(_ sender: Any) {
-        delegate?.filterScreen()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,6 +73,7 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                 if let scrollViewForImages = Bundle.main.loadNibNamed("ProductImagesScrollView", owner: self, options: [:])?.first as? ProductImagesScrollView {
                     if cell.viewEmbedScroll.tag == 0 {
                         scrollViewForImages.frame = CGRect(x: 0, y: 0, width: cell.viewEmbedScroll.bounds.width, height: cell.viewEmbedScroll.bounds.height)
+                        scrollViewForImages.images = images
                         
                         for (i, image) in images.enumerated() {
                             DispatchQueue.global().async {
@@ -108,6 +100,7 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                     }
                 }
             }
+            cell.btnBasket.tag = item.canBeAddedToBasket ? 1 : 0
             cell.delegate = self
             cell.tag = indexPath.row
         }
@@ -126,7 +119,8 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             if let preview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PreviewImageVC") as? PreviewImageVC {
                 if let scrollViewForImages = Bundle.main.loadNibNamed("ProductImagesScrollView", owner: self, options: [:])?.first as? ProductImagesScrollView {
                     scrollViewForImages.frame = CGRect(x: 0, y: 30, width: preview.view.bounds.width, height: preview.view.bounds.height-30)
-                    
+                    scrollViewForImages.images = item.images
+
                     for (i, image) in (item.images ?? []).enumerated() {
                         DispatchQueue.global().async {
                             if let url = URL(string: image), let data = try? Data(contentsOf: url) {
@@ -143,7 +137,7 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                             }
                         }
                     }
-                    scrollViewForImages.scrollForImages.contentSize = CGSize(width: CGFloat(item.images?.count ?? 0) * scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
+                    scrollViewForImages.scrollForImages.contentSize = CGSize(width: CGFloat(item.images?.count ?? 0) * scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height - 30)
                     preview.view.addSubview(scrollViewForImages)
                     scrollViewForImages.scrollForImages.contentOffset = CGPoint(x: CGFloat(imgTag) * scrollViewForImages.bounds.width, y: scrollViewForImages.scrollForImages.contentOffset.y)
                     present(preview, animated: true, completion: nil)
@@ -157,7 +151,9 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+       if let item = itemArray?[indexPath.row] {
+           delegate?.cellDidSelect(item: item)
+       }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -166,6 +162,7 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ProductListReusableView", for: indexPath) as! ProductListReusableView
+        header.delegate = self
         return header
     }
     
@@ -173,9 +170,31 @@ class ProductsListVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
     
-    func basketScreen() {
+    func basketScreen(sender: UIButton) {
+        if sender.tag == 0 {
+            if let navc = UIApplication.shared.delegate?.window??.rootViewController as? UINavigationController {
+                let alert = UIAlertController(title: "basket clicked and product properties must be chosen", message: "", preferredStyle: .alert)
+                navc.present(alert, animated: true, completion: nil)
+            }
+        }
+        else {
+            if let navc = UIApplication.shared.delegate?.window??.rootViewController as? UINavigationController {
+                let alert = UIAlertController(title: "basket clicked and product is added to cart", message: "", preferredStyle: .alert)
+                navc.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func orderScreen() {
         if let navc = UIApplication.shared.delegate?.window??.rootViewController as? UINavigationController {
-            let alert = UIAlertController(title: "basket clicked", message: "", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Order clicked", message: "", preferredStyle: .alert)
+            navc.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func filterScreen() {
+        if let navc = UIApplication.shared.delegate?.window??.rootViewController as? UINavigationController {
+            let alert = UIAlertController(title: "Filter clicked", message: "", preferredStyle: .alert)
             navc.present(alert, animated: true, completion: nil)
         }
     }

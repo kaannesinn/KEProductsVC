@@ -11,8 +11,10 @@ import UIKit
 class ProductImagesScrollView: UIView {
 
     @IBOutlet weak var scrollForImages: UIScrollView!
-   
+    var images: [String]?
+    
     override class func awakeFromNib() {
         super.awakeFromNib()
     }
+    
 }

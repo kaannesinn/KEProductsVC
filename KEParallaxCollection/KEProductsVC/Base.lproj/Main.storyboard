@@ -44,7 +44,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="imgView" destination="r4f-2V-LMS" id="7Xx-bo-RHX"/>
+                        <outlet property="imagesView" destination="r4f-2V-LMS" id="4ip-xC-gp3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -327,7 +327,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Sırala"/>
                                                     <connections>
-                                                        <action selector="orderClicked:" destination="anF-yP-tqs" eventType="touchUpInside" id="UMw-Ia-mHX"/>
+                                                        <action selector="orderClicked:" destination="g3C-wn-pKg" eventType="touchUpInside" id="ypk-eW-nQU"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9i-50-4Ad">
@@ -335,7 +335,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Filtrele"/>
                                                     <connections>
-                                                        <action selector="filterClicked:" destination="anF-yP-tqs" eventType="touchUpInside" id="w5T-jA-cba"/>
+                                                        <action selector="filterClicked:" destination="g3C-wn-pKg" eventType="touchUpInside" id="z2c-za-NMu"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -353,6 +353,10 @@
                                         <constraint firstItem="qdr-TL-IZU" firstAttribute="centerY" secondItem="g3C-wn-pKg" secondAttribute="centerY" id="hDq-pR-6Dc"/>
                                         <constraint firstItem="qdr-TL-IZU" firstAttribute="leading" secondItem="g3C-wn-pKg" secondAttribute="leading" id="o3A-ZI-YTD"/>
                                     </constraints>
+                                    <connections>
+                                        <outlet property="btnFilter" destination="T9i-50-4Ad" id="oiD-q5-pHb"/>
+                                        <outlet property="btnOrder" destination="gqI-kL-Gsv" id="FG5-8k-rVH"/>
+                                    </connections>
                                 </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="anF-yP-tqs" id="Rv8-B4-WoY"/>

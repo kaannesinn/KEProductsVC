@@ -9,14 +9,14 @@
 import UIKit
 
 protocol KEParallaxCollectionViewControllerDelegate: NSObject {
-    func cellDidSelect(item: (color: UIColor, title: String, price: CGFloat, discountedPrice: CGFloat?), indexPath: IndexPath, cell: KEParallaxCell?)
+    func cellDidSelect(item: (title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool), indexPath: IndexPath, cell: KEParallaxCell?)
     func allClicked()
 }
 
 class KEParallaxCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, KEParallaxCellDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var itemArray: [(color: UIColor, title: String, price: CGFloat, discountedPrice: CGFloat?)]?
+    var itemArray: [(title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool)]?
     var insetValue: CGFloat = 0.0
     var cellWidth: CGFloat = 370.0
     var cellHeight: CGFloat = 240.0
@@ -109,7 +109,17 @@ class KEParallaxCollectionViewController: UIViewController, UICollectionViewDele
                 cell.lblPrice.font = UIFont(name: "HelveticaNeue-Bold", size: 19.0)
                 cell.lblPrice.attributedText = NSAttributedString(string: "\(item.price) ₺", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
             }
-            cell.imgCell.backgroundColor = item.color
+            
+            DispatchQueue.global().async {
+                if let url = URL(string: item.images?.first ?? ""), let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        if let img = UIImage(data: data) {
+                            cell.imgCell.image = img
+                        }
+                    }
+                }
+            }
+            
             cell.updateCellImage(isImageRounded: isImageRoundedOnCell, cornerRadius: cornerRadiusForImageOnCell)
             cell.delegate = self
             cell.tag = indexPath.row
