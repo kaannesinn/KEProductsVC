@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, KEParallaxCollectionViewC
                                 (title: "4 sdfasdf", price: 40.0, discountedPrice: 20.0, discountValue: 99, images: ["https://js.pngtree.com/web3/images/index-new/5330219.png?v=a", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRapSCeQqGfdGp8mFQR41el68BzzsA9qGi9PViWIYRj24Dmiu4J"]),
                                 (title: "5 sdfasdf", price: 4000.0, discountedPrice: 2000.0, discountValue: 10, images: ["https://js.pngtree.com/web3/images/index-new/5330219.png?v=a", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRapSCeQqGfdGp8mFQR41el68BzzsA9qGi9PViWIYRj24Dmiu4J", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQcj--O4oT-rAdJHPRpqCso5FylV5lw1-DCdmbJvsR2zeTJp7pa"]),
                                 (title: "6 sdfasdf", price: 400.0, discountedPrice: nil, discountValue: nil, images: nil)]
-                navc.present(vc, animated: true, completion: nil)
+                navc.pushViewController(vc, animated: true)
             }
         }
     }

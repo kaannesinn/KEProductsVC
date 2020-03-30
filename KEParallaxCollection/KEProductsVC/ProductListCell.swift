@@ -23,6 +23,11 @@ class ProductListCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        lblDiscountValue.layer.cornerRadius = 5.0
+        lblDiscountValue.layer.masksToBounds = true
+        
+        layer.cornerRadius = 10.0
+        layer.masksToBounds = true
     }
     
     @IBAction func basketClicked(_ sender: Any) {
