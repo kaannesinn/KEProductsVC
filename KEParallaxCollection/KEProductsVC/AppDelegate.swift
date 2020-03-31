@@ -37,37 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, KEParallaxCollectionViewC
     }
 
     func cellDidSelect(item: (title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool)) {
+        openProductDetail(item: item, indexPath: nil, cell: nil)
+    }
+        
+    func openProductDetail(item: (title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool), indexPath: IndexPath?, cell: KEParallaxCell?) {
         if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
             if let navc = window?.rootViewController as? UINavigationController {
-                vc.loadView()
-                
-                if let scrollViewForImages = Bundle.main.loadNibNamed("ProductImagesScrollView", owner: self, options: [:])?.first as? ProductImagesScrollView {
-                    scrollViewForImages.frame = CGRect(x: 0, y: 0, width: vc.imagesView.bounds.width, height: vc.imagesView.bounds.height)
-                    scrollViewForImages.images = item.images
-                    self.images = item.images
-                    
-                    for (i, image) in (item.images ?? []).enumerated() {
-                        DispatchQueue.global().async {
-                            if let url = URL(string: image), let data = try? Data(contentsOf: url) {
-                                DispatchQueue.main.async {
-                                    if let img = UIImage(data: data) {
-                                        let imgView = UIImageView(image: img)
-                                        imgView.contentMode = .scaleAspectFit
-                                        imgView.isUserInteractionEnabled = true
-                                        imgView.tag = i
-                                        imgView.frame = CGRect(x: CGFloat(i) * scrollViewForImages.bounds.width, y: 0, width: scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
-                                        scrollViewForImages.scrollForImages.addSubview(imgView)
-                                        
-                                        let tap = UITapGestureRecognizer(target: self, action: #selector(self.scrollTapped(sender:)))
-                                        imgView.addGestureRecognizer(tap)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    scrollViewForImages.scrollForImages.contentSize = CGSize(width: CGFloat(item.images?.count ?? 0) * scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
-                    vc.imagesView.addSubview(scrollViewForImages)
-                }
+                vc.images = item.images
+                vc.cell = cell
+                vc.item = item
+                self.images = item.images
                 
                 let tempNav = UINavigationController(rootViewController: vc)
                 tempNav.modalPresentationStyle = .overFullScreen
@@ -79,100 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, KEParallaxCollectionViewC
         }
     }
     
-     @objc func scrollTapped(sender: UITapGestureRecognizer) {
-        //        print(sender.view)
-        //        print(sender.view?.tag)
-        //        print(sender.view?.superview?.superview?.superview?.superview?.superview)
-        //        print(sender.view?.superview?.superview?.superview?.superview?.superview?.tag)
-        
-        if let navc = window?.rootViewController as? UINavigationController,
-            let imgTag = sender.view?.tag {
-            if let preview = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PreviewImageVC") as? PreviewImageVC {
-                if let scrollViewForImages = Bundle.main.loadNibNamed("ProductImagesScrollView", owner: self, options: [:])?.first as? ProductImagesScrollView {
-                    scrollViewForImages.frame = CGRect(x: 0, y: 30, width: preview.view.bounds.width, height: preview.view.bounds.height-30)
-                    scrollViewForImages.images = self.images
-
-                    for (i, image) in (self.images ?? []).enumerated() {
-                        DispatchQueue.global().async {
-                            if let url = URL(string: image), let data = try? Data(contentsOf: url) {
-                                DispatchQueue.main.async {
-                                    if let img = UIImage(data: data) {
-                                        let imgView = UIImageView(image: img)
-                                        imgView.contentMode = .scaleAspectFit
-                                        imgView.isUserInteractionEnabled = true
-                                        imgView.tag = i
-                                        imgView.frame = CGRect(x: CGFloat(i) * scrollViewForImages.bounds.width, y: 0, width: scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
-                                        scrollViewForImages.scrollForImages.addSubview(imgView)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    scrollViewForImages.scrollForImages.contentSize = CGSize(width: CGFloat(self.images?.count ?? 0) * scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height - 30)
-                    preview.view.addSubview(scrollViewForImages)
-                    scrollViewForImages.scrollForImages.contentOffset = CGPoint(x: CGFloat(imgTag) * scrollViewForImages.bounds.width, y: scrollViewForImages.scrollForImages.contentOffset.y)
-                    navc.presentedViewController?.present(preview, animated: true)
-                }
-            }
-        }
-    }
-    
     func cellDidSelect(item: (title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool), indexPath: IndexPath, cell: KEParallaxCell?) {
-        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
-            if let navc = window?.rootViewController as? UINavigationController {
-                vc.loadView()
-
-                let imgView = UIImageView(image: cell?.imgCell.image)
-                let rect = UIApplication.shared.delegate?.window!!.convert(cell!.imgCell.frame, from: cell?.contentView)
-//                let rect = cell?.contentView.convert(cell!.imgCell.frame, to: UIApplication.shared.delegate?.window!)
-                imgView.frame = rect!
-                imgView.layer.cornerRadius = 20.0
-                imgView.layer.masksToBounds = true
-                UIApplication.shared.delegate?.window??.addSubview(imgView)
-                
-                UIView.animate(withDuration: 0.25, delay: 0, options: [.allowAnimatedContent, .allowUserInteraction], animations: {
-                    imgView.frame = vc.imagesView.frame
-                }, completion: nil)
-                
-                if let scrollViewForImages = Bundle.main.loadNibNamed("ProductImagesScrollView", owner: self, options: [:])?.first as? ProductImagesScrollView {
-                    scrollViewForImages.frame = CGRect(x: 0, y: 0, width: vc.imagesView.bounds.width, height: vc.imagesView.bounds.height)
-                    scrollViewForImages.images = item.images
-                    self.images = item.images
-                    
-                    for (i, image) in (item.images ?? []).enumerated() {
-                        DispatchQueue.global().async {
-                            if let url = URL(string: image), let data = try? Data(contentsOf: url) {
-                                DispatchQueue.main.async {
-                                    if let img = UIImage(data: data) {
-                                        let imgView = UIImageView(image: img)
-                                        imgView.contentMode = .scaleAspectFit
-                                        imgView.isUserInteractionEnabled = true
-                                        imgView.tag = i
-                                        imgView.frame = CGRect(x: CGFloat(i) * scrollViewForImages.bounds.width, y: 0, width: scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
-                                        scrollViewForImages.scrollForImages.addSubview(imgView)
-                                        
-                                        let tap = UITapGestureRecognizer(target: self, action: #selector(self.scrollTapped(sender:)))
-                                        imgView.addGestureRecognizer(tap)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    scrollViewForImages.scrollForImages.contentSize = CGSize(width: CGFloat(item.images?.count ?? 0) * scrollViewForImages.bounds.width, height: scrollViewForImages.bounds.height)
-                    vc.imagesView.addSubview(scrollViewForImages)
-                }
-                
-                let tempNav = UINavigationController(rootViewController: vc)
-                tempNav.modalPresentationStyle = .overFullScreen
-                tempNav.modalTransitionStyle = .crossDissolve
-                tempNav.navigationBar.isTranslucent = true
-                tempNav.navigationBar.isHidden = true
-                navc.present(tempNav, animated: true) {
-                    imgView.removeFromSuperview()
-                }
-            }
-        }
+        openProductDetail(item: item, indexPath: indexPath, cell: cell)
     }
     
     func allClicked() {

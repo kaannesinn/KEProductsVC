@@ -1,0 +1,21 @@
+//
+//  ProductColorsScrollView.swift
+//  KEProductsVC
+//
+//  Created by Kaan Esin on 31.03.2020.
+//  Copyright © 2020 Kaan Esin. All rights reserved.
+//
+
+import UIKit
+
+class ProductColorsScrollView: UIView {
+
+    /*
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+    }
+    */
+
+}
