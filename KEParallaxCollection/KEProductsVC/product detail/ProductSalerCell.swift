@@ -37,7 +37,7 @@ class ProductSalerCell: UITableViewCell {
     }
     
     @IBAction func cargoFreeClicked(_ sender: UIButton) {
-        delegate?.salerScreen(sender: sender, cell: self)
+        delegate?.cargoFreeScreen(sender: sender, cell: self)
     }
     
 }

@@ -265,8 +265,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Xgy-Go-i2X">
-                                                    <rect key="frame" x="15" y="21.5" width="384" height="70"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xgy-Go-i2X">
+                                                    <rect key="frame" x="15" y="22.5" width="384" height="68"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Renk Seç" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000001192092896" translatesAutoresizingMaskIntoConstraints="NO" id="cJT-Qc-wUU">
                                                             <rect key="frame" x="0.0" y="0.0" width="384" height="23"/>
@@ -275,10 +275,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nb4-sX-BZu">
-                                                            <rect key="frame" x="0.0" y="25" width="384" height="45"/>
+                                                            <rect key="frame" x="0.0" y="33" width="384" height="35"/>
                                                             <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="45" id="Hbb-WJ-3KQ"/>
+                                                                <constraint firstAttribute="height" constant="35" id="Hbb-WJ-3KQ"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>

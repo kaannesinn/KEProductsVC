@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="157"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlV-qR-iI6">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlV-qR-iI6">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="157"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <viewLayoutGuide key="contentLayoutGuide" id="ILY-vP-O9J"/>
@@ -23,6 +23,9 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Agp-PS-0XJ"/>
+            <connections>
+                <outlet property="scrollForColors" destination="tlV-qR-iI6" id="pOf-0F-VQa"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="152.34375"/>
         </view>
     </objects>

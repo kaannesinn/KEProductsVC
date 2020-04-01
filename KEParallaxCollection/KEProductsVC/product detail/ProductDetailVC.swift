@@ -27,6 +27,7 @@ class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var images: [String]? = []
     var cell: KEParallaxCell?
     var item: (title: String, price: CGFloat, discountedPrice: CGFloat?, discountValue: CGFloat?, images: [String]?, canBeAddedToBasket: Bool)!
+    var selectedColorView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,11 @@ class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         listArray?.append(["cell": CellType.ProductDirectionCell_Product_Features])
         listArray?.append(["cell": CellType.ProductDirectionCell_Product_Comments])
         listArray?.append(["cell": CellType.ProductDirectionCell_Product_Tax_Options])
+        tableView.reloadData()
+    }
+    
+    @objc func colorTapped(sender: UITapGestureRecognizer) {
+        selectedColorView = sender.view
         tableView.reloadData()
     }
     
@@ -193,6 +199,54 @@ class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return cell
         case CellType.ProductColorsCell.rawValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductColorsCell") as! ProductColorsCell
+            if cell.viewForColors.tag == 0 {
+                let colorView = Bundle.main.loadNibNamed("ProductColorsScrollView", owner: nil, options: [:])?.first as! ProductColorsScrollView
+                colorView.frame = CGRect(x: 0, y: 0, width: cell.viewForColors.frame.width, height: cell.viewForColors.frame.height)
+                
+                let colors = [["color": UIColor.red, "id": 12], ["color": UIColor.blue, "id": 112342], ["color": UIColor.yellow, "id": 112], ["color": UIColor.black, "id": 112342], ["color": UIColor.green, "id": 2212], ["color": UIColor.gray, "id": 2212], ["color": UIColor.magenta, "id": 1452], ["color": UIColor.cyan, "id": 1242], ["color": UIColor.brown, "id": 1122], ["color": UIColor.purple, "id": 12]]
+                colorView.colors = colors
+
+                let width: CGFloat = 35.0
+                let left: CGFloat = 5.0
+                for (i, color) in colors.enumerated() {
+                    let embedView = UIView(frame: CGRect(x: CGFloat(i) * (width + left), y: 0, width: width, height: width))
+                    embedView.backgroundColor = .clear
+                    embedView.layer.borderColor = UIColor.lightGray.cgColor
+                    embedView.layer.borderWidth = 1.0
+                    embedView.layer.masksToBounds = true
+                    embedView.clipsToBounds = true
+                    embedView.isUserInteractionEnabled = true
+                    
+                    let colorImgView = UIImageView(frame: CGRect(x: left, y: left, width: width - left*2, height: width - left*2))
+                    colorImgView.backgroundColor = color["color"] as! UIColor
+                    colorImgView.tag = color["id"] as! Int
+                    colorImgView.isUserInteractionEnabled = true
+                    embedView.tag = colorImgView.tag
+                    embedView.addSubview(colorImgView)
+                    
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.colorTapped(sender:)))
+                    embedView.addGestureRecognizer(tap)
+
+                    colorView.scrollForColors.addSubview(embedView)
+                }
+                
+                colorView.scrollForColors.contentSize = CGSize(width: CGFloat(colors.count) * (width + left), height: colorView.bounds.height)
+                cell.viewForColors.addSubview(colorView)
+                cell.viewForColors.backgroundColor = .clear
+                cell.viewForColors.tag = 1
+            }
+            else {
+                if let colorView = cell.viewForColors.subviews.first as? ProductColorsScrollView {
+                    for embedView in colorView.scrollForColors.subviews {
+                        if embedView == selectedColorView {
+                            embedView.backgroundColor = .yellow
+                        }
+                        else {
+                            embedView.backgroundColor = .clear
+                        }
+                    }
+                }
+            }
             cell.lblColor.text = "Renk Seç"
             return cell
         case CellType.ProductDirectionCell_Product_Features.rawValue:
