@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2wp-gw-3Kb">
-                                <rect key="frame" x="0.0" y="20" width="414" height="766"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="786"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProductDetailImageViewCell" rowHeight="363" id="DCL-JS-efJ" customClass="ProductDetailImageViewCell" customModule="KEProductsVC" customModuleProvider="target">
@@ -411,10 +411,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0G-eE-2w6" customClass="ProductAddBasketView" customModule="KEProductsVC" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="786" width="414" height="76"/>
+                                <rect key="frame" x="0.0" y="806" width="414" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="76" id="961-bx-gsQ"/>
+                                    <constraint firstAttribute="width" secondItem="h0G-eE-2w6" secondAttribute="height" multiplier="207:45" id="41H-wu-gFT"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Em-iq-Fjx">
@@ -434,7 +434,7 @@
                             <constraint firstItem="2wp-gw-3Kb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6xK-ua-gEM"/>
                             <constraint firstItem="7Em-iq-Fjx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8rN-AO-OCi"/>
                             <constraint firstItem="h0G-eE-2w6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DE4-K6-Ro5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="h0G-eE-2w6" secondAttribute="bottom" id="GMm-Oh-3nF"/>
+                            <constraint firstAttribute="bottom" secondItem="h0G-eE-2w6" secondAttribute="bottom" id="GMm-Oh-3nF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Em-iq-Fjx" secondAttribute="trailing" constant="20" id="Qgs-r7-m0O"/>
                             <constraint firstItem="2wp-gw-3Kb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="RMq-YH-gOb"/>
                             <constraint firstItem="h0G-eE-2w6" firstAttribute="top" secondItem="2wp-gw-3Kb" secondAttribute="bottom" id="aJc-8A-dUc"/>

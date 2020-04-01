@@ -18,7 +18,7 @@ enum CellType: NSInteger {
     case ProductDirectionCell_Product_Tax_Options
 }
 
-class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource, ProductDetailInfoCellDelegate, ProductSalerCellDelegate, ProductDirectionCellDelegate {
+class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource, ProductDetailInfoCellDelegate, ProductSalerCellDelegate, ProductDirectionCellDelegate, ProductAddBasketViewDelegate {
 
     @IBOutlet weak var btnClose: UIButton!
     var listArray: [[String: Any]]? = []
@@ -66,6 +66,11 @@ class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         listArray?.append(["cell": CellType.ProductDirectionCell_Product_Comments])
         listArray?.append(["cell": CellType.ProductDirectionCell_Product_Tax_Options])
         tableView.reloadData()
+        
+        let addBasketView = Bundle.main.loadNibNamed("ProductAddBasketView", owner: nil, options: [:])?.first as! ProductAddBasketView
+        addBasketView.frame = CGRect(x: 0, y: 0, width: viewForBasket.frame.width, height: viewForBasket.frame.height)
+        addBasketView.delegate = self
+        viewForBasket.addSubview(addBasketView)
     }
     
     @objc func colorTapped(sender: UITapGestureRecognizer) {
@@ -336,5 +341,13 @@ class ProductDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             navc.presentedViewController?.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func addBasketScreen(sender: UIButton, stepper: KEStepperView) {
+        if let navc = UIApplication.shared.delegate?.window??.rootViewController as? UINavigationController {
+            let alert = UIAlertController(title: "\(stepper.itemCount) Adet ürün sepete eklendi", message: "Sepet Ekranı Açılacak", preferredStyle: .alert)
+            navc.presentedViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 }
 

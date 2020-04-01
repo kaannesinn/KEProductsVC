@@ -48,12 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, KEParallaxCollectionViewC
                 vc.item = item
                 self.images = item.images
                 
-                let tempNav = UINavigationController(rootViewController: vc)
-                tempNav.modalPresentationStyle = .overFullScreen
-                tempNav.modalTransitionStyle = .crossDissolve
-                tempNav.navigationBar.isTranslucent = true
-                tempNav.navigationBar.isHidden = true
-                navc.present(tempNav, animated: true)
+//                let tempNav = UINavigationController(rootViewController: vc)
+//                tempNav.modalPresentationStyle = .overFullScreen
+//                tempNav.modalTransitionStyle = .crossDissolve
+//                tempNav.navigationBar.isTranslucent = true
+//                tempNav.navigationBar.isHidden = true
+//                navc.present(tempNav, animated: true)
+                
+                navc.navigationBar.isTranslucent = true
+                navc.navigationBar.setBackgroundImage(UIImage(), for: .default)
+                navc.navigationBar.shadowImage = UIImage()
+                navc.pushViewController(vc, animated: true)
             }
         }
     }
